@@ -4,7 +4,11 @@ package
 	
 	public class GController
 	{	
+		public static const kLeft:Array = ["LEFT"];
+		public static const kRight:Array = ["RIGHT"];
 		public static const kLaunchKey:Array = ["SPACE"];
+		public static const kKnitKey:Array = ["DOWN"];
+		public static const kUnknitKey:Array = ["UP"];
 		
 		/**
 		 * Checks whether or not any of the keys in the array is being pressed. Wraps <code>FlxG.keys.pressed</code>

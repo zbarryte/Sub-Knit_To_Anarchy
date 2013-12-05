@@ -29,7 +29,7 @@ package
 		
 		private function bounce():void {
 			if ((justTouched(FlxObject.DOWN) && 0 < prevVelY) || (justTouched(FlxObject.UP) && prevVelY < 0)) {
-				velocity.y = -prevVelY * 0.88;
+				velocity.y = -prevVelY * 0.44;
 			}
 			if ((justTouched(FlxObject.LEFT) && prevVelX < 0) || (justTouched(FlxObject.RIGHT) && 0 < prevVelX)) {
 				velocity.x = -prevVelX * 0.88;

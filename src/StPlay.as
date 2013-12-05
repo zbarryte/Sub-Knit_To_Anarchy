@@ -12,6 +12,8 @@ package
 		private var ballGroup:ZGroup;
 		private var basketGroup:ZGroup;
 		private var launcherGroup:ZGroup;
+		private var grannyGroup:ZGroup;
+		private var scarfGroup:ZGroup;
 
 		
 		override protected function createScene():void {
@@ -20,6 +22,8 @@ package
 			addBallGroup();
 			addBasketGroup();
 			addLauncherGroup();
+			addGrannyGroup();
+			addScarfGroup();
 			resume();
 		}
 		
@@ -48,6 +52,20 @@ package
 			add(launcherGroup);
 		}
 		
+		private function addGrannyGroup():void {
+			grannyGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnGranny,SprGranny);
+			add(grannyGroup);
+		}
+		
+		private function addScarfGroup():void {
+			scarfGroup = new ZGroup();
+			for (var i:uint = 0; i < grannyGroup.length; i++) {
+				var $granny:SprGranny = grannyGroup.members[i];
+				var $scarf:SprScarf = $granny.scarf;
+				scarfGroup.add($scarf);
+			}
+		}
+		
 		override public function update():void {
 			if (isPlaying) {
 				super.update();
@@ -59,6 +77,21 @@ package
 		private function updateScene():void {
 			FlxG.collide(ballGroup,wallGroup);
 			FlxG.collide(ballGroup,ballGroup);
+			FlxG.collide(ballGroup,scarfGroup);
+			catchBallsInBaskets();
+		}
+		
+		private function catchBallsInBaskets():void {
+			for (var i:uint = 0; i < basketGroup.length; i++) {
+				var $basket:SprBasket = basketGroup.members[i];
+				for (var j:uint = 0; j < ballGroup.length; j++) {
+					var $ball:SprBall = ballGroup.members[j];
+					if ($ball.overlaps($basket)) {
+						win();
+						$ball.kill();
+					}
+				}
+			}
 		}
 		
 		private function updatePauseControls():void {
@@ -66,9 +99,31 @@ package
 		}
 		
 		override protected function updateControls():void {
+			
+			// LAUNCH BALL
 			if (Glob.kController.justPressed(GController.kLaunchKey)) {
 				launchBall();
 			}
+			
+			// KNIT or UNKNIT
+			if (Glob.kController.pressedAfter(GController.kKnitKey,GController.kUnknitKey)) {
+				grannyKnit();
+			}
+			else if (Glob.kController.pressedAfter(GController.kUnknitKey,GController.kKnitKey)) {
+				grannyUnknit();
+			}
+			
+			// MOVE LEFT, MOVE RIGHT, or STOP
+			if (Glob.kController.pressedAfter(GController.kLeft,GController.kRight)) {
+				grannyMoveLeft();
+			}
+			else if (Glob.kController.pressedAfter(GController.kRight,GController.kLeft)) {
+				grannyMoveRight();
+			}
+			else {
+				grannyStop();
+			}
+			
 		}
 		
 		private function launchBall():void {
@@ -79,7 +134,46 @@ package
 			}
 		}
 		
+		private function grannyKnit():void {
+			for (var i:uint = 0; i < grannyGroup.length; i++) {
+				var $granny:SprGranny = grannyGroup.members[i];
+				$granny.knit();
+			}
+		}
+		
+		private function grannyUnknit():void {
+			for (var i:uint = 0; i < grannyGroup.length; i++) {
+				var $granny:SprGranny = grannyGroup.members[i];
+				$granny.unknit();
+			}
+		}
+		
+		private function grannyMoveLeft():void {
+			for (var i:uint = 0; i < grannyGroup.length; i++) {
+				var $granny:SprGranny = grannyGroup.members[i];
+				$granny.moveLeft();
+			}
+		}
+		
+		private function grannyMoveRight():void {
+			for (var i:uint = 0; i < grannyGroup.length; i++) {
+				var $granny:SprGranny = grannyGroup.members[i];
+				$granny.moveRight();
+			}
+		}
+		
+		private function grannyStop():void {
+			for (var i:uint = 0; i < grannyGroup.length; i++) {
+				var $granny:SprGranny = grannyGroup.members[i];
+				$granny.stop();
+			}
+		}
+		
 		private function pause():void {isPlaying = false;}
 		private function resume():void {isPlaying = true;}
+		
+		private function win():void {
+			Glob.log("WIN");
+		}
 	}
 }

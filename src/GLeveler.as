@@ -5,6 +5,7 @@ package
 		public static const kSpawnWall:Array = [1];
 		public static const kSpawnLauncher:Array = [2];
 		public static const kSpawnBasket:Array = [3];
+		public static const kSpawnGranny:Array = [4];
 		
 		public function GLeveler() {
 			num = 0;
