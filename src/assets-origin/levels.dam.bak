@@ -20,9 +20,9 @@
         <row>1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</row>
         <row>1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</row>
         <row>1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</row>
-        <row>1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</row>
-        <row>1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1</row>
-        <row>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</row>
+        <row>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1</row>
+        <row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</row>
+        <row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0</row>
       </maplayer>
     </group>
   </layers>
@@ -164,7 +164,7 @@
   </options>
   <exporter name="/Applications/DAME.app/Contents/Resources/lua/Exporters/csvTilemap.lua" spritepos="Top Left" rotatedSpritePos="false" relativePaths="false" useProjectExporterOnly="false">
     <setting name="FileExt">csv</setting>
-    <setting name="CSVDir">/Users/zacharybarryte/Desktop/TimeFly/assets</setting>
+    <setting name="CSVDir">/Users/zacharybarryte/Dropbox/Private/Sub-Knit_to_Anarchy/src/assets</setting>
   </exporter>
   <customPropertyTypes/>
   <guides>

@@ -3,7 +3,7 @@ package
 	import org.flixel.FlxG;
 	
 	public class Glob
-	{
+	{	
 		public static const kDebugOn:Boolean = true;
 		
 		public static var width:Number = FlxG.width;

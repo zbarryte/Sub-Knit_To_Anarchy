@@ -4,6 +4,8 @@ package
 	
 	public class GController
 	{	
+		public static const kLaunchKey:Array = ["SPACE"];
+		
 		/**
 		 * Checks whether or not any of the keys in the array is being pressed. Wraps <code>FlxG.keys.pressed</code>
 		 * 
@@ -15,8 +17,6 @@ package
 			for (var i:uint = 0; i < $keys.length; i++) {
 				if (FlxG.keys.pressed($keys[i])) {
 					return true;
-					
-					FlxG.keys.pressed
 				}
 			}
 			return false;

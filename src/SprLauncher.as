@@ -9,7 +9,7 @@ package
 		
 		public function newBall():SprBall {
 			var $ball:SprBall = new SprBall(x,y);
-			$ball.velocity.x = 20;
+			$ball.launch();
 			return $ball;
 		}
 	}
