@@ -7,7 +7,7 @@ package
 		private const kMoveAccel:Number = 20 * Glob.kLeveler.kTileWidthOrHeight;
 		private const kDragX:Number = kMoveAccel;
 		
-		public function SprGranny($x:Number=0, $y:Number=0, $simpleGraphic:Class=null)
+		public function SprGranny($x:Number=0, $y:Number=0)
 		{
 			super($x, $y, Glob.kSpritinator.kGranny);
 			

@@ -1,6 +1,7 @@
 package
 {
 	import org.flixel.FlxG;
+	import org.flixel.FlxU;
 	
 	public class Glob
 	{	
@@ -14,5 +15,8 @@ package
 		public static const kController:GController = new GController();
 		
 		public static function log($data:Object):void {FlxG.log($data);}
+		public static function classOfObject($obj:Object,$simpleBoolean:Boolean=false):Class {
+			return FlxU.getClass(FlxU.getClassName($obj,$simpleBoolean));
+		}
 	}
 }

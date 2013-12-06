@@ -64,6 +64,7 @@ package
 				var $scarf:SprScarf = $granny.scarf;
 				scarfGroup.add($scarf);
 			}
+			add(scarfGroup);
 		}
 		
 		override public function update():void {
@@ -86,8 +87,8 @@ package
 				var $basket:SprBasket = basketGroup.members[i];
 				for (var j:uint = 0; j < ballGroup.length; j++) {
 					var $ball:SprBall = ballGroup.members[j];
-					if ($ball.overlaps($basket)) {
-						win();
+					if ($ball.alive && $ball.overlaps($basket)) {
+						$basket.collect($ball);
 						$ball.kill();
 					}
 				}
@@ -171,9 +172,5 @@ package
 		
 		private function pause():void {isPlaying = false;}
 		private function resume():void {isPlaying = true;}
-		
-		private function win():void {
-			Glob.log("WIN");
-		}
 	}
 }
