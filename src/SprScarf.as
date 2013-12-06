@@ -26,12 +26,10 @@ package
 		
 		public function addSegment():void {
 			numSegments++;
-			Glob.log(numSegments);
 		}
 		
 		public function removeSegment():void {
 			numSegments--;
-			Glob.log(numSegments);
 		}
 		
 		override public function update():void {
