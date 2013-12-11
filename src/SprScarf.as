@@ -46,5 +46,9 @@ package
 				$segment.draw();
 			}
 		}
+		
+		public function bounceFactor():Number {
+			return velocity.x * 1.22;
+		}
 	}
 }

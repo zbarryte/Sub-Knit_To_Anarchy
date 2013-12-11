@@ -13,6 +13,7 @@ package
 		public static const kSpritinator:GSpritinator = new GSpritinator();
 		public static const kLeveler:GLeveler = new GLeveler();
 		public static const kController:GController = new GController();
+		public static const kAudiator:GAudiator = new GAudiator();
 		
 		public static function log($data:Object):void {FlxG.log($data);}
 		public static function classOfObject($obj:Object,$simpleBoolean:Boolean=false):Class {

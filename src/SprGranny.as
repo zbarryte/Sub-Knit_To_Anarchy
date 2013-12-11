@@ -4,8 +4,9 @@ package
 	{
 		public var scarf:SprScarf;
 		
-		private const kMoveAccel:Number = 5 * Glob.kLeveler.kTileWidthOrHeight;
+		private const kMoveAccel:Number = 10 * Glob.kLeveler.kTileWidthOrHeight;
 		private const kDragX:Number = kMoveAccel;
+		private const kMaxVelX:Number = 5 * Glob.kLeveler.kTileWidthOrHeight;
 		
 		protected var _numStitches:int;
 		private function get numStitches():int {return _numStitches;}
@@ -21,7 +22,7 @@ package
 			}
 		}
 		private const kNumStitchesMin:uint = 0;
-		private const kNumStitchesMax:uint = 5;
+		private const kNumStitchesMax:uint = 2;
 		
 		public function SprGranny($x:Number=0, $y:Number=0)
 		{
@@ -33,6 +34,7 @@ package
 			numStitches = 0;
 			
 			drag.x = kDragX;
+			maxVelocity.x = kMaxVelX;
 		}
 		
 		public function knit():void {

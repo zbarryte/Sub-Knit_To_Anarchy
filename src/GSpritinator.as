@@ -2,7 +2,7 @@ package
 {
 	public class GSpritinator
 	{
-		public const kGravAccel:Number = 10 * Glob.kLeveler.kTileWidthOrHeight; // tile length ~ 1 meter
+		public const kGravAccel:Number = 22 * Glob.kLeveler.kTileWidthOrHeight; // tile length ~ 1 meter
 		
 		[Embed("assets/spr_ball.png")] public const kBall:Class;
 		[Embed("assets/spr_launcher.png")] public const kLauncher:Class;
@@ -10,5 +10,20 @@ package
 		[Embed("assets/spr_basket.png")] public const kBasket:Class;
 		[Embed("assets/spr_granny.png")] public const kGranny:Class;
 		[Embed("assets/spr_scarf_segment.png")] public const kScarfSegment:Class;
+		
+		public const kColorR:uint = 0xffff0000;
+		//public const kColorG:uint = 0xff00ff00;
+		public const kColorB:uint = 0xff0000ff;
+		private const kColors:Array = [kColorR/*,kColorG*/,kColorB];
+		
+		public const kDirL:uint = 0;
+		public const kDirR:uint = 1;
+		public const kDirU:uint = 2;
+		public const kDirD:uint = 3;
+		
+		public function randomColor():uint {
+			var $index:uint = Math.random()*(kColors.length);
+			return kColors[$index];
+		}
 	}
 }

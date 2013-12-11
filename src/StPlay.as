@@ -76,10 +76,34 @@ package
 		}
 		
 		private function updateScene():void {
-			FlxG.collide(ballGroup,wallGroup);
-			FlxG.collide(ballGroup,ballGroup);
-			FlxG.collide(ballGroup,scarfGroup);
+			collideStuff();
 			catchBallsInBaskets();
+		}
+		
+		private function collideStuff():void {
+			// BALLS with WALLS
+			var $callbackBallWall:Function = function($ball:SprBall,$wall:SprWall):void {
+				$ball.bounceOffWall($wall);
+			};
+			FlxG.collide(ballGroup,wallGroup,$callbackBallWall);
+			
+			// BALLS with BALLS
+			var $callbackBallBall:Function = function($ball1:SprBall,$ball2:SprBall):void {
+				$ball1.bounceOffBall($ball2);
+				$ball2.bounceOffBall($ball1);
+			};
+			FlxG.collide(ballGroup,ballGroup,$callbackBallBall);
+			
+			// BALLS with SCARVES
+			var $callbackBallScarf:Function = function($ball:SprBall,$scarf:SprScarf):void {
+				$ball.bounceOffScarf($scarf);
+			};
+			FlxG.collide(ballGroup,scarfGroup,$callbackBallScarf);
+			
+			// GRANNIES with WALLS
+			FlxG.collide(grannyGroup,wallGroup);
+			
+			// FOX in SOCKS?
 		}
 		
 		private function catchBallsInBaskets():void {
