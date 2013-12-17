@@ -43,7 +43,16 @@ package
 		}
 		
 		private function addBasketGroup():void {
-			basketGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnBasket,SprBasket);
+			basketGroup = new ZGroup();
+			// RED
+			var $basketGroupRed:ZGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnBasketRed,SprBasket);
+			basketGroup.add($basketGroupRed);
+			$basketGroupRed.color = Glob.kSpritinator.kColorR;
+			// BLUE
+			var $basketGroupBlue:ZGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnBasketBlue,SprBasket);
+			basketGroup.add($basketGroupBlue);
+			$basketGroupBlue.color = Glob.kSpritinator.kColorB;
+			
 			add(basketGroup);
 		}
 		
