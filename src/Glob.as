@@ -19,5 +19,6 @@ package
 		public static function classOfObject($obj:Object,$simpleBoolean:Boolean=false):Class {
 			return FlxU.getClass(FlxU.getClassName($obj,$simpleBoolean));
 		}
+		public static function get elapsed():Number {return FlxG.elapsed;}
 	}
 }

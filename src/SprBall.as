@@ -34,6 +34,8 @@ package
 			prevVelY = 0;
 			
 			//drag.x = kDragX;
+			
+			maxVelocity.y = kLaunchVelX*2.0;
 		}
 		
 		public function launch():void {
@@ -89,6 +91,11 @@ package
 			prevVelY = velocity.y;
 			
 			// change angle based on x velocity
+		}
+		
+		public function bounceBackHard():void {
+			velocity.x = -velocity.x*1.22;
+			velocity.y = -velocity.y*1.04;
 		}
 		
 		/*

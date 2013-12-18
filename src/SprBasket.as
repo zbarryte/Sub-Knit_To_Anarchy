@@ -8,7 +8,12 @@ package
 		}
 		
 		public function collect($ball:SprBall):void {
-			Glob.log("COLLECT BALL :: not yet implemented");
+			if ($ball.color != color) {
+				$ball.kill();
+			}
+			else {
+				$ball.bounceBackHard();
+			}
 		}
 	}
 }

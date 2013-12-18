@@ -9,16 +9,17 @@ package
 		
 		private var levelFunctional:ZTilemap;
 		private var wallGroup:ZGroup;
+		private var wallMagicGroup:ZGroup;
 		private var ballGroup:ZGroup;
 		private var basketGroup:ZGroup;
 		private var launcherGroup:ZGroup;
 		private var grannyGroup:ZGroup;
 		private var scarfGroup:ZGroup;
-
 		
 		override protected function createScene():void {
 			addLevel();
 			addWallGroup();
+			addWallMagicGroup();
 			addBallGroup();
 			addBasketGroup();
 			addLauncherGroup();
@@ -35,6 +36,19 @@ package
 		private function addWallGroup():void {
 			wallGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnWall,SprWall);
 			add(wallGroup);
+		}
+		
+		private function addWallMagicGroup():void {
+			wallMagicGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnWallMagic,SprWallMagic);
+			add(wallMagicGroup);
+			var $callbackMagic:Function = function():void {
+				for (var i:uint = 0; i < wallMagicGroup.length; i++) {
+					var $wallMagic:SprWallMagic = wallMagicGroup.members[i];
+					$wallMagic.change();
+				}
+			};
+			var $eventMagic:ZEvent = new ZEvent(2.0,$callbackMagic);
+			add($eventMagic);
 		}
 		
 		private function addBallGroup():void {
@@ -112,6 +126,17 @@ package
 			// GRANNIES with WALLS
 			FlxG.collide(grannyGroup,wallGroup);
 			
+			// BALLS with MAGIC WALLS
+			var $callbackBallWallMagic:Function = function($ball:SprBall,$wallMagic:SprWallMagic):void {
+				$ball.bounceOffWall($wallMagic);
+			};
+			for (var i:uint = 0; i < wallMagicGroup.length; i++) {
+				var $wallMagic:SprWallMagic = wallMagicGroup.members[i];
+				if ($wallMagic.isThere()) {
+					FlxG.collide(ballGroup,$wallMagic,$callbackBallWallMagic);
+				}
+			}
+			
 			// FOX in SOCKS?
 		}
 		
@@ -122,10 +147,36 @@ package
 					var $ball:SprBall = ballGroup.members[j];
 					if ($ball.alive && $ball.overlaps($basket)) {
 						$basket.collect($ball);
-						$ball.kill();
+						reactIfBallCaught($ball);
 					}
 				}
 			}
+		}
+		
+		private function reactIfBallCaught($ball:SprBall):void {
+			if ($ball.alive) {
+				promptTextOnNode(":(",$ball);
+			}
+			else {
+				promptTextOnNode("ANARCHY",$ball);
+			}
+		}
+		
+		private function promptTextOnNode($text:String,$node:ZNode):void {
+			var $msgWidth:Number = 222;
+			var $msg:ZText = new ZText($node.x + $node.width/2.0 - $msgWidth/2.0,$node.y,$msgWidth,$text);
+			$msg.color = 0xff0000;
+			add($msg);
+			$msg.alignment = "center";
+			$msg.size = 11 + Math.random()*11;
+			$msg.angle = -90 + Math.random()*180;
+			
+			var $deleteEvent:ZEvent;
+			var $callbackDelete:Function = function():void {
+				$msg.kill();
+			};
+			$deleteEvent = new ZEvent(0.22,$callbackDelete,false,true);
+			add($deleteEvent);
 		}
 		
 		private function updatePauseControls():void {

@@ -6,7 +6,8 @@ package
 		public static const kSpawnLauncher:Array = [2];
 		public static const kSpawnBasketBlue:Array = [3];
 		public static const kSpawnGranny:Array = [4];
-		public static const kSpawnBasketRed = [5];
+		public static const kSpawnBasketRed:Array = [5];
+		public static const kSpawnWallMagic:Array = [6];
 		
 		public function GLeveler() {
 			num = 0;
