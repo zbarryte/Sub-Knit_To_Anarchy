@@ -41,7 +41,7 @@ package
 			if (_event!=null) {_event();}
 		}
 		
-		protected function stop():void {
+		public function stop():void {
 			resetTimer();
 			_isPlaying = false;
 			if (_killOnStop) {
@@ -49,7 +49,7 @@ package
 			}
 		}
 		
-		protected function play():void {
+		public function play():void {
 			_isPlaying = true;
 		}
 		

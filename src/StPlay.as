@@ -6,6 +6,7 @@ package
 	public class StPlay extends ZState
 	{
 		private var isPlaying:Boolean;
+		private var isDone:Boolean;
 		
 		private var levelFunctional:ZTilemap;
 		private var wallGroup:ZGroup;
@@ -15,6 +16,7 @@ package
 		private var launcherGroup:ZGroup;
 		private var grannyGroup:ZGroup;
 		private var scarfGroup:ZGroup;
+		private var timer:SprTimer;
 		
 		override protected function createScene():void {
 			addLevel();
@@ -23,8 +25,10 @@ package
 			addBallGroup();
 			addBasketGroup();
 			addLauncherGroup();
+			addCountdown();
 			addGrannyGroup();
 			addScarfGroup();
+			addTimer();
 			resume();
 		}
 		
@@ -75,6 +79,22 @@ package
 			add(launcherGroup);
 		}
 		
+		private function addCountdown():void {
+			var $eventLauncher:ZEvent;
+			var $callbackLauncher:Function = function():void {
+				
+				timer.start(); // kludgey...
+				
+				launchBall();
+				$eventLauncher = new ZEvent(2 + Math.random()*5,$callbackLauncher,false,true);
+				add($eventLauncher);
+			};
+			//$callbackLauncher();
+			
+			var $countdown:SprCountdown = new SprCountdown(3,0.44,$callbackLauncher,0,Glob.height/2.0);
+			add($countdown);
+		}
+		
 		private function addGrannyGroup():void {
 			grannyGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnGranny,SprGranny);
 			add(grannyGroup);
@@ -90,10 +110,18 @@ package
 			add(scarfGroup);
 		}
 		
+		private function addTimer():void {
+			timer = new SprTimer(200);
+			add(timer);
+		}
+		
 		override public function update():void {
 			if (isPlaying) {
 				super.update();
 				updateScene();
+			}
+			else if (isDone) {
+				updateDoneScene();
 			}
 			else {updatePauseControls();}
 		}
@@ -101,6 +129,10 @@ package
 		private function updateScene():void {
 			collideStuff();
 			catchBallsInBaskets();
+		}
+		
+		private function updateDoneScene():void {
+			// 
 		}
 		
 		private function collideStuff():void {
@@ -170,6 +202,7 @@ package
 			$msg.alignment = "center";
 			$msg.size = 11 + Math.random()*11;
 			$msg.angle = -90 + Math.random()*180;
+			$msg.shadow = 0xff000000;
 			
 			var $deleteEvent:ZEvent;
 			var $callbackDelete:Function = function():void {
@@ -185,10 +218,12 @@ package
 		
 		override protected function updateControls():void {
 			
+			/*
 			// LAUNCH BALL
 			if (Glob.kController.justPressed(GController.kLaunchKey)) {
 				launchBall();
 			}
+			*/
 			
 			// KNIT or UNKNIT
 			if (Glob.kController.pressedAfter(GController.kKnitKey,GController.kUnknitKey)) {
@@ -256,5 +291,7 @@ package
 		
 		private function pause():void {isPlaying = false;}
 		private function resume():void {isPlaying = true;}
+		
+		private function end():void {isDone = true;}
 	}
 }
