@@ -119,7 +119,7 @@ package
 		}
 		
 		private function addTimer():void {
-			timer = new SprTimer(500);
+			timer = new SprTimer(150);
 			add(timer);
 		}
 		
@@ -130,7 +130,7 @@ package
 		}
 		
 		override public function update():void {
-			if (isPlaying) {
+			if (isPlaying && !isDone) {
 				super.update();
 				updateScene();
 			}
@@ -143,6 +143,7 @@ package
 		private function updateScene():void {
 			collideStuff();
 			catchBallsInBaskets();
+			endIfTimeIsOut();
 		}
 		
 		private function updateDoneScene():void {
@@ -227,6 +228,12 @@ package
 			add($deleteEvent);
 		}
 		
+		private function endIfTimeIsOut():void {
+			if (timer.isDone()) {
+				end();
+			}
+		}
+		
 		private function updatePauseControls():void {
 			//
 		}
@@ -307,6 +314,18 @@ package
 		private function pause():void {isPlaying = false;}
 		private function resume():void {isPlaying = true;}
 		
-		private function end():void {isDone = true;}
+		private function end():void {
+			addEndText();
+			isDone = true;
+		}
+		
+		private function addEndText():void {
+			var $endText:ZText = new ZText(0,Glob.height/2.0,Glob.width);
+			$endText.alignment = "center";
+			$endText.text = "ANARCHY OVER";
+			$endText.size = 99;
+			add($endText);
+			$endText.y -= $endText.height/2.0;
+		}
 	}
 }
