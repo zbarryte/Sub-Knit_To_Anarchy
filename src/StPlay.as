@@ -17,6 +17,7 @@ package
 		private var grannyGroup:ZGroup;
 		private var scarfGroup:ZGroup;
 		private var timer:SprTimer;
+		private var score:SprScore;
 		
 		override protected function createScene():void {
 			addLevel();
@@ -29,6 +30,7 @@ package
 			addGrannyGroup();
 			addScarfGroup();
 			addTimer();
+			addScore();
 			resume();
 		}
 		
@@ -80,19 +82,25 @@ package
 		}
 		
 		private function addCountdown():void {
+			
+			var $countdown:SprCountdown = new SprCountdown(3,0.44,startGame,0,Glob.height/2.0);
+			add($countdown);
+		}
+		
+		private function startGame():void {
+			
+			timer.start();
+			
 			var $eventLauncher:ZEvent;
 			var $callbackLauncher:Function = function():void {
 				
-				timer.start(); // kludgey...
+				if (timer.isDone()) {return;}
 				
 				launchBall();
 				$eventLauncher = new ZEvent(2 + Math.random()*5,$callbackLauncher,false,true);
 				add($eventLauncher);
 			};
-			//$callbackLauncher();
-			
-			var $countdown:SprCountdown = new SprCountdown(3,0.44,$callbackLauncher,0,Glob.height/2.0);
-			add($countdown);
+			$callbackLauncher();
 		}
 		
 		private function addGrannyGroup():void {
@@ -111,8 +119,14 @@ package
 		}
 		
 		private function addTimer():void {
-			timer = new SprTimer(200);
+			timer = new SprTimer(500);
 			add(timer);
+		}
+		
+		private function addScore():void {
+			score = new SprScore();
+			score.x = Glob.width - score.width;
+			add(score);
 		}
 		
 		override public function update():void {
@@ -190,6 +204,7 @@ package
 				promptTextOnNode(":(",$ball);
 			}
 			else {
+				score.addCatchPoints();
 				promptTextOnNode("ANARCHY",$ball);
 			}
 		}
