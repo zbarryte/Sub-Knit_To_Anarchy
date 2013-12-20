@@ -9,7 +9,7 @@ package
 			_numSegments = $numSegments;
 		}
 		private const kNumSegmentsMin:uint = 0;
-		private const kNumSegmentsMax:uint = 100;
+		private const kNumSegmentsMax:uint = 44;
 		
 		private var segment:SprScarfSegment;
 		

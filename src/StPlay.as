@@ -1,5 +1,7 @@
 package
 {	
+	import flash.utils.Dictionary;
+	
 	import org.flixel.FlxG;
 	import org.flixel.FlxObject;
 	
@@ -36,12 +38,47 @@ package
 		
 		private function addLevel():void {
 			levelFunctional = Glob.kLeveler.levelFunctional();
-			if (Glob.kDebugOn) {add(levelFunctional);}
+			//if (Glob.kDebugOn) {add(levelFunctional);}
 		}
 		
 		private function addWallGroup():void {
 			wallGroup = levelFunctional.groupFromSpawn(GLeveler.kSpawnWall,SprWall);
 			add(wallGroup);
+			
+			var i:uint;
+			var $dictX:Dictionary = new Dictionary();
+			var $dictY:Dictionary;
+			var $wall:SprWall;
+			for (i = 0; i < wallGroup.length; i++) {
+				$wall = wallGroup.members[i];
+				
+				$dictY = $dictX[$wall.x];
+				if (!$dictY) {
+					$dictY = new Dictionary();
+					$dictX[$wall.x] = $dictY;
+				}
+				//var $dictY:Dictionary = new Dictionary();
+				//$dictX[$wall.x] = $dictY;
+				$dictY[$wall.y] = true;
+			}
+			
+			for (i = 0; i < wallGroup.length; i++) {
+				
+				$wall = wallGroup.members[i];
+				
+				var $dictXL:Dictionary = $dictX[$wall.xToL()];
+				var $dictXR:Dictionary = $dictX[$wall.xToR()];
+				
+				if (!$dictXL || !$dictXL[$wall.y]) {
+					$wall.makeL();
+				}
+				else if (!$dictXR || !$dictXR[$wall.y]) {
+					$wall.makeR();
+				}
+				else {
+					$wall.makeC();
+				}
+			}
 		}
 		
 		private function addWallMagicGroup():void {
@@ -74,6 +111,30 @@ package
 			$basketGroupBlue.color = Glob.kSpritinator.kColorB;
 			
 			add(basketGroup);
+			
+			var i:uint;
+			var $basket:SprBasket;
+			var $dictX:Dictionary = new Dictionary();
+			var $dictY:Dictionary;
+			for (i = 0; i < basketGroup.length; i++) {
+				$basket = basketGroup.members[i];
+				$dictY = $dictX[$basket.x];
+				if (!$dictY) {
+					$dictY = new Dictionary();
+					$dictX[$basket.x] = $dictY;
+				}
+				$dictY[$basket.y] = true;
+			}
+			for (i = 0; i < basketGroup.length; i++) {
+				$basket = basketGroup.members[i];
+				
+				var $dictXL:Dictionary = $dictX[$basket.xToL()];
+				var $dictXR:Dictionary = $dictY[$basket.xToR()];
+				
+				if (!$dictXL || !$dictXL[$basket.y]) {$basket.makeL()}
+				else if (!$dictXR || !$dictXR[$basket.y]) {$basket.makeR()}
+				else {$basket.makeC()}
+			}
 		}
 		
 		private function addLauncherGroup():void {

@@ -85,5 +85,10 @@ package
 			
 			return $isTouching;
 		}
+		
+		public function xToL():Number {return x - width;}
+		public function xToR():Number {return x + width;}
+		public function yToU():Number {return y - height;}
+		public function yToD():Number {return y + height;}
 	}
 }

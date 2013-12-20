@@ -90,7 +90,8 @@ package
 			prevVelX = velocity.x;
 			prevVelY = velocity.y;
 			
-			// change angle based on x velocity
+			var $dTheta:Number = velocity.x/width; // except, should actually calculate this
+			angle += $dTheta;
 		}
 		
 		public function bounceBackHard():void {
