@@ -42,6 +42,15 @@ package
 			$child.acceleration = acceleration;
 			$child.x = x + $child.xLocal;
 			$child.y = y + $child.yLocal;
+			$child.update();
+		}
+		
+		override public function postUpdate():void {
+			super.postUpdate();
+			for (var i:uint = 0; i < _children.length; i++) {
+				var $child:ZNode = _children.members[i];
+				$child.postUpdate();
+			}
 		}
 		
 		override public function draw():void {

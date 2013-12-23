@@ -11,10 +11,11 @@ package
 		[Embed("assets/spr_granny.png")] public const kGranny:Class;
 		[Embed("assets/spr_scarf_segment.png")] public const kScarfSegment:Class;
 		[Embed("assets/spr_wall_magic.png")] public const kWallMagic:Class;
+		[Embed("assets/spr_fire.png")] public const kFire:Class;
 		
-		public const kColorR:uint = 0xffff0000;
+		public const kColorR:uint = 0xffff8888;
 		public const kColorG:uint = 0xff00ff00;
-		public const kColorB:uint = 0xff0000ff;
+		public const kColorB:uint = 0xff000088;
 		private const kColors:Array = [kColorR,kColorG,kColorB,kColorR,kColorB];
 		
 		public const kDirL:uint = 0;

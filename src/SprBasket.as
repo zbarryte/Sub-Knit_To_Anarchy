@@ -18,7 +18,7 @@ package
 				$ball.kill();
 			}
 			else {
-				$ball.bounceBackHard();
+				$ball.bounceBackHardAndCatchFire();
 			}
 		}
 		

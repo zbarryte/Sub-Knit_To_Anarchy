@@ -158,7 +158,7 @@ package
 				if (timer.isDone()) {return;}
 				
 				launchBall();
-				$eventLauncher = new ZEvent(2 + Math.random()*5,$callbackLauncher,false,true);
+				$eventLauncher = new ZEvent(3 + Math.random()*3,$callbackLauncher,false,true);
 				add($eventLauncher);
 			};
 			$callbackLauncher();
@@ -263,7 +263,8 @@ package
 		
 		private function reactIfBallCaught($ball:SprBall):void {
 			if ($ball.alive) {
-				promptTextOnNode(":(",$ball);
+				
+				promptTextOnNode("CONFORMISM :(",$ball);
 			}
 			else {
 				score.addCatchPoints();

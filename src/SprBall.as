@@ -21,6 +21,8 @@ package
 			_prevVelY = $prevVelY;
 		}
 		
+		protected var _fire:SprFire;
+		
 		public function SprBall($x:Number=0, $y:Number=0)
 		{
 			super($x, $y, Glob.kSpritinator.kBall);
@@ -36,6 +38,12 @@ package
 			//drag.x = kDragX;
 			
 			maxVelocity.y = kLaunchVelX*2.0;
+			
+			var $burnOut:Function = function():void {
+				kill();
+			};
+			_fire = new SprFire($burnOut);
+			add(_fire);
 		}
 		
 		public function launch():void {
@@ -58,6 +66,9 @@ package
 		}
 		
 		public function bounceOffBall($ball:SprBall):void {
+			
+			if ($ball.isBurning()) {burn();}
+			
 			// BOUNCE LEFT or RIGHT
 			if (touchesNodeLeft($ball) || touchesNodeRight($ball)) {
 				velocity.x = -prevVelX + $ball.prevVelX;
@@ -94,10 +105,29 @@ package
 			angle += $dTheta;
 		}
 		
-		public function bounceBackHard():void {
-			velocity.x = -velocity.x*1.22;
-			velocity.y = -velocity.y*1.04;
+		public function bounceBackHardAndCatchFire():void {
+			velocity.x = -velocity.x;
+			velocity.y = -velocity.y*4;
+			
+			if (velocity.y > 0) {velocity.y *= -1;}
+			
+			burn();
 		}
+		
+		public function burn():void {
+			_fire.burn();
+		}
+		
+		public function isBurning():Boolean {
+			return _fire.isBurning();
+		}
+		
+		/*
+		public function burn():void {
+			velocity.x = -velocity.x*1.22;
+			velocity.y = -velocity.y*
+		}
+		*/
 		
 		/*
 		private function bounce():void {
