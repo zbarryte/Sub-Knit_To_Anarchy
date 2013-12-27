@@ -45,6 +45,14 @@ package
 			$child.update();
 		}
 		
+		override public function preUpdate():void {
+			super.preUpdate();
+			for (var i:uint = 0; i < _children.length; i++) {
+				var $child:ZNode = _children.members[i];
+				$child.preUpdate();
+			}
+		}
+		
 		override public function postUpdate():void {
 			super.postUpdate();
 			for (var i:uint = 0; i < _children.length; i++) {

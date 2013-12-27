@@ -39,7 +39,7 @@ package
 		}
 		
 		protected function updateControls():void {
-			
+			// implemented by children
 		}
 	}
 }

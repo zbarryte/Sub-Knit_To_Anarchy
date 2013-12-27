@@ -20,5 +20,7 @@ package
 			return FlxU.getClass(FlxU.getClassName($obj,$simpleBoolean));
 		}
 		public static function get elapsed():Number {return FlxG.elapsed;}
+		
+		public static function switchState($class:Class):void {FlxG.switchState(new $class());}
 	}
 }

@@ -14,7 +14,7 @@ package
 		}
 		
 		public function collect($ball:SprBall):void {
-			if ($ball.color != color) {
+			if ($ball.color != color && !$ball.isBurning()) {
 				$ball.kill();
 			}
 			else {

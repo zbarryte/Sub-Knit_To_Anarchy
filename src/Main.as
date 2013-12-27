@@ -3,7 +3,7 @@ package
 	import org.flixel.FlxGame;
 	import flash.events.Event;
 	
-	[SWF(width="640", height="480", backgroundColor="#000000")]
+	[SWF(width="640", height="480", backgroundColor="#111111")]
 	
 	public class Main extends FlxGame
 	{

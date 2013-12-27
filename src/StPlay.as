@@ -158,7 +158,7 @@ package
 				if (timer.isDone()) {return;}
 				
 				launchBall();
-				$eventLauncher = new ZEvent(3 + Math.random()*3,$callbackLauncher,false,true);
+				$eventLauncher = new ZEvent(1 + Math.random()*2,$callbackLauncher,false,true);
 				add($eventLauncher);
 			};
 			$callbackLauncher();
@@ -264,7 +264,7 @@ package
 		private function reactIfBallCaught($ball:SprBall):void {
 			if ($ball.alive) {
 				
-				promptTextOnNode("CONFORMISM :(",$ball);
+				//promptTextOnNode("CONFORMISM :(",$ball);
 			}
 			else {
 				score.addCatchPoints();
@@ -273,20 +273,20 @@ package
 		}
 		
 		private function promptTextOnNode($text:String,$node:ZNode):void {
-			var $msgWidth:Number = 222;
+			var $msgWidth:Number = 444;
 			var $msg:ZText = new ZText($node.x + $node.width/2.0 - $msgWidth/2.0,$node.y,$msgWidth,$text);
-			$msg.color = 0xff0000;
+			$msg.color = 0xff000000;
 			add($msg);
 			$msg.alignment = "center";
-			$msg.size = 11 + Math.random()*11;
-			$msg.angle = -90 + Math.random()*180;
-			$msg.shadow = 0xff000000;
+			$msg.size = 22 + Math.random()*22;
+			$msg.angle = -45 + Math.random()*90;
+			$msg.shadow = 0xffffffff;
 			
 			var $deleteEvent:ZEvent;
 			var $callbackDelete:Function = function():void {
 				$msg.kill();
 			};
-			$deleteEvent = new ZEvent(0.22,$callbackDelete,false,true);
+			$deleteEvent = new ZEvent(0.44,$callbackDelete,false,true);
 			add($deleteEvent);
 		}
 		
@@ -302,12 +302,11 @@ package
 		
 		override protected function updateControls():void {
 			
-			/*
-			// LAUNCH BALL
+			// TEST
 			if (Glob.kController.justPressed(GController.kLaunchKey)) {
-				launchBall();
+				Glob.switchState(StTitle);
 			}
-			*/
+			
 			
 			// KNIT or UNKNIT
 			if (Glob.kController.pressedAfter(GController.kKnitKey,GController.kUnknitKey)) {

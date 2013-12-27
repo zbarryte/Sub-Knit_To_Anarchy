@@ -12,6 +12,8 @@ package
 		[Embed("assets/spr_scarf_segment.png")] public const kScarfSegment:Class;
 		[Embed("assets/spr_wall_magic.png")] public const kWallMagic:Class;
 		[Embed("assets/spr_fire.png")] public const kFire:Class;
+		[Embed("assets/spr_btn_basic.png")] public const kBtnBasic:Class;
+		[Embed("assets/spr_ball_halo.png")] public const kBallHalo:Class;
 		
 		public const kColorR:uint = 0xffff8888;
 		public const kColorG:uint = 0xff00ff00;

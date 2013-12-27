@@ -1,29 +1,22 @@
 package
 {	
-	public class SprTimer extends ZNode
+	public class SprTimer extends ZText
 	{
-		private var label:ZText;
 		private var time:Number;
 		
 		private var isPlaying:Boolean;
 		
 		public function SprTimer($start:Number,$x:Number=0, $y:Number=0)
 		{	
-			super($x, $y);
-			
-			var $labelWidth:Number = 222;
-			label = new ZText(x,y,$labelWidth);
+			super($x, $y,Glob.width);
+			alignment = "left";
 			
 			time = $start;
+			updateLabel();
 		}
 		
 		private function updateLabel():void {
-			label.text = "TIME REMAINING: "+uint(time)+" secs";
-		}
-		
-		override public function draw():void {
-			super.draw();
-			label.draw();
+			text = "TIME REMAINING: "+uint(time)+" secs";
 		}
 		
 		override public function update():void {

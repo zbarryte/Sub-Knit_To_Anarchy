@@ -22,13 +22,22 @@ package
 		}
 		
 		protected var _fire:SprFire;
+		protected var _halo:SprBallHalo;
 		
 		public function SprBall($x:Number=0, $y:Number=0)
 		{
 			super($x, $y, Glob.kSpritinator.kBall);
 			
 			acceleration.y = Glob.kSpritinator.kGravAccel;
-			color = Glob.kSpritinator.randomColor();
+			var $assignmentColor:uint = Glob.kSpritinator.randomColor();
+			color = $assignmentColor;
+						
+			if ($assignmentColor == Glob.kSpritinator.kColorG) {
+				_halo = new SprBallHalo();
+				add(_halo);
+				_halo.xLocal = width/2.0 - _halo.width/2.0;
+				_halo.yLocal = height/2.0 - _halo.height/2.0;
+			}
 			
 			maxVelocity.x = kLaunchVelX;
 			
@@ -43,6 +52,8 @@ package
 				kill();
 			};
 			_fire = new SprFire($burnOut);
+			_fire.xLocal = width/2.0 - _fire.width/2.0;
+			_fire.yLocal = height/2.0 - _fire.height/2.0;
 			add(_fire);
 		}
 		
@@ -106,7 +117,7 @@ package
 		}
 		
 		public function bounceBackHardAndCatchFire():void {
-			velocity.x = -velocity.x;
+			velocity.x = -velocity.x*0.75;
 			velocity.y = -velocity.y*4;
 			
 			if (velocity.y > 0) {velocity.y *= -1;}
