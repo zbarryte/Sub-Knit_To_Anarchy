@@ -25,7 +25,7 @@ package
 			idle();
 		}
 		
-		public function burn():void {play(kAnimBurn); _isBurning = true;}
+		public function burn():void {play(kAnimBurn); _isBurning = true; Glob.kAudiator.playFire();}
 		private function idle():void {frame = kFrameIdle;}
 		
 		public function isBurning():Boolean {

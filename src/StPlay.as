@@ -20,8 +20,10 @@ package
 		private var scarfGroup:ZGroup;
 		private var timer:SprTimer;
 		private var score:SprScore;
+		private var endText:ZText;
 		
 		override protected function createScene():void {
+			playSong();
 			addLevel();
 			addWallGroup();
 			addWallMagicGroup();
@@ -33,11 +35,18 @@ package
 			addScarfGroup();
 			addTimer();
 			addScore();
+			addEndText();
 			resume();
+		}
+		
+		private function playSong():void {
+			Glob.kAudiator.play(GAudiator.kSongPlay);
 		}
 		
 		private function addLevel():void {
 			levelFunctional = Glob.kLeveler.levelFunctional();
+			levelFunctional.x = Glob.width/2.0 - levelFunctional.width/2.0;
+			levelFunctional.y = Glob.height/2.0 - levelFunctional.height/2.0;
 			//if (Glob.kDebugOn) {add(levelFunctional);}
 		}
 		
@@ -70,7 +79,12 @@ package
 				var $dictXR:Dictionary = $dictX[$wall.xToR()];
 				
 				if (!$dictXL || !$dictXL[$wall.y]) {
-					$wall.makeL();
+					
+					if (!$dictXR || !$dictXR[$wall.y]) {
+						$wall.makeLR();
+					} else {
+						$wall.makeL();
+					}
 				}
 				else if (!$dictXR || !$dictXR[$wall.y]) {
 					$wall.makeR();
@@ -180,7 +194,7 @@ package
 		}
 		
 		private function addTimer():void {
-			timer = new SprTimer(150);
+			timer = new SprTimer(60);
 			add(timer);
 		}
 		
@@ -209,6 +223,9 @@ package
 		
 		private function updateDoneScene():void {
 			// 
+			if (Glob.kController.justPressed(GController.kLaunchKey)) {
+				Glob.switchState(Glob.classOfObject(this));
+			}
 		}
 		
 		private function collideStuff():void {
@@ -301,11 +318,12 @@ package
 		}
 		
 		override protected function updateControls():void {
-			
+			/*
 			// TEST
 			if (Glob.kController.justPressed(GController.kLaunchKey)) {
 				Glob.switchState(StTitle);
 			}
+			*/
 			
 			
 			// KNIT or UNKNIT
@@ -376,17 +394,21 @@ package
 		private function resume():void {isPlaying = true;}
 		
 		private function end():void {
-			addEndText();
+			//addEndText();
+			endText.visible = true;
 			isDone = true;
+			Glob.kAudiator.playDie();
+			Glob.kAudiator.stop(GAudiator.kSongPlay);
 		}
 		
 		private function addEndText():void {
-			var $endText:ZText = new ZText(0,Glob.height/2.0,Glob.width);
-			$endText.alignment = "center";
-			$endText.text = "ANARCHY OVER";
-			$endText.size = 99;
-			add($endText);
-			$endText.y -= $endText.height/2.0;
+			endText = new ZText(0,Glob.height/2.0,Glob.width);
+			endText.alignment = "center";
+			endText.text = "ANARCHY OVER";
+			endText.size = 99;
+			add(endText);
+			endText.y -= endText.height/2.0;
+			endText.visible = false;
 		}
 	}
 }

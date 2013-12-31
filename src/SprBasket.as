@@ -16,6 +16,7 @@ package
 		public function collect($ball:SprBall):void {
 			if ($ball.color != color && !$ball.isBurning()) {
 				$ball.kill();
+				Glob.kAudiator.playCatch();
 			}
 			else {
 				$ball.bounceBackHardAndCatchFire();

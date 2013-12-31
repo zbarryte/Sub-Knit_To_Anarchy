@@ -6,6 +6,8 @@ package
 		private const kFrameC:uint = 1;
 		private const kFrameR:uint = 2;
 		
+		private const kFrameLR:uint = 6;
+		
 		public function SprWall($x:Number=0, $y:Number=0, $simpleGraphic:Class=null)
 		{
 			super($x, $y);
@@ -18,5 +20,6 @@ package
 		public function makeL():void {frame = kFrameL;}
 		public function makeC():void {frame = kFrameC;}
 		public function makeR():void {frame = kFrameR;}
+		public function makeLR():void {frame = kFrameLR;}
 	}
 }

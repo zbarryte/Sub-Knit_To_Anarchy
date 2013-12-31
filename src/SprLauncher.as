@@ -8,6 +8,9 @@ package
 		}
 		
 		public function newBall():SprBall {
+			
+			Glob.kAudiator.playBallLaunch();
+			
 			var $ball:SprBall = new SprBall(x,y);
 			$ball.launch();
 			return $ball;

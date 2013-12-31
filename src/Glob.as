@@ -22,5 +22,6 @@ package
 		public static function get elapsed():Number {return FlxG.elapsed;}
 		
 		public static function switchState($class:Class):void {FlxG.switchState(new $class());}
+		public static function set bgColor($bgColor:uint):void {FlxG.bgColor = $bgColor;}
 	}
 }
