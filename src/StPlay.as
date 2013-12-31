@@ -25,11 +25,11 @@ package
 		override protected function createScene():void {
 			playSong();
 			addLevel();
+			addLauncherGroup();
 			addWallGroup();
 			addWallMagicGroup();
 			addBallGroup();
 			addBasketGroup();
-			addLauncherGroup();
 			addCountdown();
 			addGrannyGroup();
 			addScarfGroup();
@@ -37,6 +37,15 @@ package
 			addScore();
 			addEndText();
 			resume();
+			addInstructions();
+		}
+		
+		private function addInstructions():void {
+			var $instructions:ZText = new ZText(0,0,Glob.width);
+			add($instructions);
+			$instructions.text = "Don't conform! Get points by not matching colors!\t\tLeft/Right to move\t\tUp/Down to knit\t\t Space to restart when it's over...";
+			$instructions.y = Glob.height - $instructions.height;
+			$instructions.alignment = "center";
 		}
 		
 		private function playSong():void {
