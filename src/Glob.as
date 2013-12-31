@@ -5,7 +5,7 @@ package
 	
 	public class Glob
 	{	
-		public static const kDebugOn:Boolean = true;
+		public static const kDebugOn:Boolean = false;
 		
 		public static var width:Number = FlxG.width;
 		public static var height:Number = FlxG.height;
